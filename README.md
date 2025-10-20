@@ -50,7 +50,6 @@ Visualizations include:
 - **Matplotlib** & **Seaborn** – Data visualization
 - **NLTK / TextBlob** – Sentiment analysis and tokenization
 - **WordCloud** – Visual representation of common words
-- **YouTube Data API v3** _(optional)_
 
 ## 📦 Dataset Access
 

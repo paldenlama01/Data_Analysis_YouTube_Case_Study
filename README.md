@@ -21,16 +21,6 @@ The work is presented in a Jupyter Notebook (`Youtube_data_analyst.ipynb`) as pa
 
 ---
 
-## 🧠 Key Insights
-
-This case study reveals several text-driven patterns:
-
-- **Title length** matters — concise, clear titles with emotionally charged words perform better.
-- **Keywords** such as “official,” “tutorial,” and “review” increase visibility.
-- **Positive sentiment** correlates with higher like-to-view ratios.
-- **Hashtag and emoji usage** show mixed engagement results, depending on category.
-- **Publishing day** and text tone together predict spikes in comment activity.
-
 Visualizations include:
 
 - Word Frequency and Word Cloud

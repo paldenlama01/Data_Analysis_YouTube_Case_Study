@@ -59,6 +59,109 @@ wordcloud_negative = WordCloud(stopwords= set(STOPWORDS)).generate(total_negativ
 plt.imshow(wordcloud_negative)
 plt.axis("off")
 ```
+## Perform Emoji Analysis
+```python
+pip install emoji
+import emoji
+import emoji
+[item["emoji"] for item in emoji_info]
+all_emoji_found = []
+for comment in comments["comment_text"]:
+    emoji_info = emoji.emoji_list(comment)
+    emoji_found = [item["emoji"] for item in emoji_info]
+    all_emoji_found.extend(emoji_found)
+from collections import Counter 
+emoji_count_list_top10 = Counter(all_emoji_found).most_common(10)
+emojis = [emoji for emoji, count in emoji_count_list_top10]
+counts = [count for emoji, count in emoji_count_list_top10]
+
+pip install plotly
+import plotly.graph_objs as go
+from plotly.offline import iplot
+
+iplot([go.Bar(x = emojis , y = counts)])
+```
+## Collect entire youtube data collection 
+```python
+import os
+files = os.listdir(r'C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\additional_data')
+files_csv = [file for file in files if '.csv' in file]
+
+import warnings
+from warnings import filterwarnings
+filterwarnings('ignore')
+
+import pandas as pd
+full_df = pd.DataFrame()
+path = r'C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\additional_data'
+
+for file in files_csv:
+    current_df = pd.read_csv(os.path.join(path, file), encoding='iso-8859-1', on_bad_lines="skip")
+    full_df = pd.concat([full_df, current_df], ignore_index=True)
+```
+## Analyzing the most liked category
+```python
+full_df['category_id'].unique()
+json_df = pd.read_json(r'C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\additional_data/US_category_id.json')
+cat_dict = {}
+for item in json_df['items'].values:
+    cat_dict[int(item['id'])] = item['snippet']['title']
+full_df['category_name'] = full_df['category_id'].map(cat_dict)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+plt.figure(figsize=(12,8))
+sns.boxplot(x='category_name', y='likes', data=full_df)
+plt.xticks(rotation='vertical')
+```
+## Analyzing Youtube Audience Engagement
+```python
+full_df['like_rate'] = full_df['likes']/full_df['views']*100
+full_df['dislike_rate'] = full_df['dislikes']/full_df['views']*100
+full_df['comment_count_rate'] = full_df['comment_count']/full_df['views']*100
+
+plt.figure(figsize=(8,6))
+sns.boxplot(x='category_name', y='like_rate', data=full_df)
+plt.xticks(rotation='vertical')
+plt.show()
+
+sns.regplot(x='views', y='likes', data=full_df)
+plt.show()
+
+full_df[['views','likes','dislikes']]
+full_df[['views','likes','dislikes']].corr()
+sns.heatmap(full_df[['views','likes','dislikes']].corr(),annot=True)
+```
+# Analyzing Trending Youtube Videos by Channel 
+```python
+full_df['channel_title'].value_counts()
+cdf = full_df.groupby(['channel_title']).size().sort_values(ascending=False).reset_index()
+cdf.columns=['channel_title', 'total_videos']
+import plotly.express as px
+fig = px.bar(cdf[:20], x='channel_title', y='total_videos',title="Top 20 Channels by Number of Videos")
+fig.show()
+```
+## Does punctuation have an impact on views, likes and dislikes? 
+```python
+import string
+string.punctuation
+len([char for char in full_df['title'][0] if char in string.punctuation])
+def punc_count(text):
+    return len([char for char in text if char in string.punctuation])
+sample= full_df[0:10000]
+sample['count_punc'] = sample['title'].apply(punc_count)
+plt.figure(figsize=(8,6))
+sns.boxplot(x='count_punc', y='views', data=sample)
+plt.title("Relationship Between Punctuation Frequency and Views")
+plt.show()
+
+plt.figure(figsize=(8,6))
+sns.boxplot(x='count_punc', y='likes', data=sample)
+plt.title("Relationship Between Punctuation Frequency and Likes")
+plt.show()
+
+```
+
 
 ---
 ## 🎯 Objectives

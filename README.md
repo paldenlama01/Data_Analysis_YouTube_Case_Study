@@ -10,15 +10,40 @@ _Analyzing how text features influence engagement on YouTube_
 The work is presented in a Jupyter Notebook (`Youtube_data_analyst.ipynb`) as part of an applied data analytics portfolio project.
 
 ---
-## Importing Required libariries
+## Importing Required libariries and CSV file.
 ```python
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as p
+
+comments = pd.read_csv(
+    r"C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\UScomments.csv",
+    on_bad_lines="skip"
+)
+```
+## Finding and removing missing values
+```python
+comments.isnull().sum()
+comments.dropna(inplace=True)
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+sia = SentimentIntensityAnalyzer()
+sentimen_scores=[]
+for comment in comments["comment_text"]:
+    score = sia.polarity_scores(str(comment))['compound']
+    sentimen_scores.append(score)
+sample_df = comments[0:10000]
+comments["polarity"] = sentimen_scores
 ```
 
+```
+## 📦 Downloading VADER Lexicon for Sentiment Analysis & 🧠 Importing VADER Sentiment Analyzer and Accessing Comment Text
+```python
+import nltk
+nltk.download("vader_lexicon")
 
+
+---
 ## 🎯 Objectives
 
 - Clean and preprocess text-based YouTube metadata

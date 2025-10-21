@@ -51,8 +51,6 @@ wordcloud_positive = WordCloud(stopwords= set(STOPWORDS)).generate(total_positiv
 plt.imshow(wordcloud_positive)
 plt.axis("off")
 
-<img width="543" height="296" alt="Screenshot 2025-10-21 103237" src="https://github.com/user-attachments/assets/d7a730b3-27fa-41a8-99eb-1a97a292295a" />
-
  ##Negative sentiment
 filter_neg = (comments["polarity"] >= -1.0) & ((comments["polarity"] <=-0.8))
 comments_negative = comments[filter_neg]
@@ -60,7 +58,6 @@ total_negative_comments = ' '.join(comments_negative["comment_text"])
 wordcloud_negative = WordCloud(stopwords= set(STOPWORDS)).generate(total_negative_comments)
 plt.imshow(wordcloud_negative)
 plt.axis("off")
-<img width="544" height="296" alt="Screenshot 2025-10-21 103444" src="https://github.com/user-attachments/assets/92b4a259-7a88-45ec-b173-0f1b6ff6b153" />
 ```
 
 ---

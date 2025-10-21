@@ -10,6 +10,14 @@ _Analyzing how text features influence engagement on YouTube_
 The work is presented in a Jupyter Notebook (`Youtube_data_analyst.ipynb`) as part of an applied data analytics portfolio project.
 
 ---
+## Importing Required libariries
+```python
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as p
+```
+
 
 ## 🎯 Objectives
 

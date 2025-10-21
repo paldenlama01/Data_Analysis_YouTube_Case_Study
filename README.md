@@ -32,9 +32,11 @@ comments.dropna(inplace=True)
 ```python
 import nltk
 nltk.download("vader_lexicon")
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 sia = SentimentIntensityAnalyzer()
 sentimen_scores=[]
+
 for comment in comments["comment_text"]:
     score = sia.polarity_scores(str(comment))['compound']
     sentimen_scores.append(score)
@@ -43,9 +45,11 @@ comments["polarity"] = sentimen_scores
 
  ##Positive sentiment
 ! pip install wordcloud
+
 filter_pos = (comments["polarity"] >= 0.8) & ((comments["polarity"] <=1.0))
 comments_positive = comments[filter_pos]
 total_positive_comments = ' '.join(comments_positive["comment_text"])
+
 from wordcloud import WordCloud, STOPWORDS
 wordcloud_positive = WordCloud(stopwords= set(STOPWORDS)).generate(total_positive_comments)
 plt.imshow(wordcloud_positive)
@@ -64,12 +68,15 @@ plt.axis("off")
 pip install emoji
 import emoji
 import emoji
+
 [item["emoji"] for item in emoji_info]
 all_emoji_found = []
+
 for comment in comments["comment_text"]:
     emoji_info = emoji.emoji_list(comment)
     emoji_found = [item["emoji"] for item in emoji_info]
     all_emoji_found.extend(emoji_found)
+
 from collections import Counter 
 emoji_count_list_top10 = Counter(all_emoji_found).most_common(10)
 emojis = [emoji for emoji, count in emoji_count_list_top10]
@@ -84,6 +91,7 @@ iplot([go.Bar(x = emojis , y = counts)])
 ## Collect entire youtube data collection 
 ```python
 import os
+
 files = os.listdir(r'C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\additional_data')
 files_csv = [file for file in files if '.csv' in file]
 
@@ -104,12 +112,14 @@ for file in files_csv:
 full_df['category_id'].unique()
 json_df = pd.read_json(r'C:\Users\rocke\Downloads\Youtube_Data_Analysis\Dataset\additional_data/US_category_id.json')
 cat_dict = {}
+
 for item in json_df['items'].values:
     cat_dict[int(item['id'])] = item['snippet']['title']
 full_df['category_name'] = full_df['category_id'].map(cat_dict)
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 plt.figure(figsize=(12,8))
 sns.boxplot(x='category_name', y='likes', data=full_df)
 plt.xticks(rotation='vertical')
@@ -137,6 +147,7 @@ sns.heatmap(full_df[['views','likes','dislikes']].corr(),annot=True)
 full_df['channel_title'].value_counts()
 cdf = full_df.groupby(['channel_title']).size().sort_values(ascending=False).reset_index()
 cdf.columns=['channel_title', 'total_videos']
+
 import plotly.express as px
 fig = px.bar(cdf[:20], x='channel_title', y='total_videos',title="Top 20 Channels by Number of Videos")
 fig.show()
@@ -148,6 +159,7 @@ string.punctuation
 len([char for char in full_df['title'][0] if char in string.punctuation])
 def punc_count(text):
     return len([char for char in text if char in string.punctuation])
+
 sample= full_df[0:10000]
 sample['count_punc'] = sample['title'].apply(punc_count)
 plt.figure(figsize=(8,6))

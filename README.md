@@ -10,6 +10,15 @@ _Analyzing how text features influence engagement on YouTube_
 The work is presented in a Jupyter Notebook (`Youtube_data_analyst.ipynb`) as part of an applied data analytics portfolio project.
 
 ---
+## 🎯 Objectives
+
+- Clean and preprocess text-based YouTube metadata
+- Perform **Exploratory Data Analysis (EDA)** on engagement metrics
+- Extract and analyze **keywords, n-grams, and sentiment**
+- Visualize patterns between text features and audience response
+- Derive insights for improving video performance and SEO strategy
+
+---
 ## Importing Required libariries and CSV file.
 ```python
 import pandas as pd
@@ -173,18 +182,6 @@ plt.title("Relationship Between Punctuation Frequency and Likes")
 plt.show()
 
 ```
-
-
----
-## 🎯 Objectives
-
-- Clean and preprocess text-based YouTube metadata
-- Perform **Exploratory Data Analysis (EDA)** on engagement metrics
-- Extract and analyze **keywords, n-grams, and sentiment**
-- Visualize patterns between text features and audience response
-- Derive insights for improving video performance and SEO strategy
-
----
 
 Visualizations include:
 

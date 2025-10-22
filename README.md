@@ -1,4 +1,4 @@
-# Text-Data-Analysis-YouTube-Case-Study
+# Data-Analysis-YouTube-Case-Study
 _Analyzing how text features influence engagement on YouTube_
 
 ---

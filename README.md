@@ -43,7 +43,3 @@ Visualizations include:
 ## 📦 Dataset Access
 
 The full dataset for this project is **not stored in this repository** to keep the repo lightweight and within GitHub size limits.
-
-If you need access to the datasets for replication or further analysis, **email me**:
-
-**Contact:** paldenlama2708@gmail.com
